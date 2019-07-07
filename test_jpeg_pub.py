@@ -6,7 +6,6 @@ import cv2
 
 
 if __name__ == "__main__":
-    tj.rm_topic()
     t = tj.get_topic()
     try:
         cap = cv2.VideoCapture(0)
