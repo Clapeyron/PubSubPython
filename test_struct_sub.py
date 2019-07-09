@@ -1,4 +1,4 @@
-from topic import TopicSpawnMode, Topic
+from topic import TopicSpawnMode, Topic, getdict
 import ctypes as C
 
 
@@ -13,7 +13,9 @@ class MyPoint(C.Structure):
 if __name__ == "__main__":
     t = Topic(b"Mycooltopic_struct1", C.sizeof(MyPoint), 10, TopicSpawnMode.CREATE)
     try:
-        while True: print(t.sub_struct(MyPoint))
+        while True:
+            s = t.sub_struct(MyPoint)
+            print(s, getdict(s))
     except Exception as e:
         print("Exception:", e)
         t.free()
