@@ -1,6 +1,6 @@
 import enum
 import ctypes as C
-_TopicLib = C.pydll.LoadLibrary('./libclap_pubsub.so')
+_Lib = C.pydll.LoadLibrary('./libclap_pubsub.so')
 
 
 @enum.unique
@@ -11,127 +11,174 @@ class TopicSpawnMode(enum.Enum):
     CREATE = 3
 
 
-class Topic:
-    def __init__(self, name, msg_size, msg_count, spawn_mode = TopicSpawnMode.CREATE):
+class NonBlockingPubSub:
+    pass
+
+
+class PubSub:
+    _dst = None
+
+    def read(self):
+        raise NotImplementedError()
+
+    def write(self, message: bytes):
+        raise NotImplementedError()
+
+    def read_struct(self, s_type):
+        return s_type.from_buffer_copy(self.read())
+
+    def write_struct(self, s: C.Structure):
+        return self.write(bytes(s))
+
+    def read_dict(self):
+        if self._dst is None: raise Exception("no default struct given")
+        return get_dict(self.read_struct(self._dst))
+
+    def write_dict(self, dct):
+        if self._dst is None: raise Exception("no default struct given")
+        return self.write_struct(self._dst(**dct))
+
+    def free(self):
+        raise NotImplementedError()
+
+    @staticmethod
+    def remove(name):
+        raise NotImplementedError()
+
+
+class Variable(PubSub):
+    def __init__(self, name, size, create=True, def_str_type=None):
         assert isinstance(name, bytes), "Name should be ascii bytes"
-        self.name = name
-        self.msg_size = msg_size
-        self.msg_count = msg_count
-        self.__spawn = _TopicLib.spawn_topic
-        self.__create = _TopicLib.create_topic
-        self.__create.restype = C.c_bool
-        self.__spawn.restype = C.c_bool
-        self.__ptr_sz = _TopicLib.TopSZ()
-        self._pub = _TopicLib.pub
-        self._pub.argtypes = [C.c_void_p, C.c_char_p, C.c_uint32]
-        self._t = C.byref(C.create_string_buffer(b"", size=self.__ptr_sz))
-        self._n = C.byref(C.create_string_buffer(name))
+        self._dst = def_str_type
+        self.bname, self.size = name, size
+        self._create, self._create.restype = _Lib.varCreate, C.c_bool
+        self._open, self._open.restype = _Lib.varOpen, C.c_bool
+        self._W, self._W.restype, self._W.argtypes = _Lib.varWrite, C.c_bool, [C.c_void_p, C.c_char_p, C.c_uint32]
+        self._R, self._R.restype, self._R.argtypes = _Lib.varRead, C.c_bool, [C.c_void_p, C.c_char_p, C.c_uint32]
+        self.Ptr = C.byref(C.create_string_buffer(b"", size=_Lib.varPtrSize()))
+        e = Exception("Can't create Variable: topic.hpp returned nullptr (:")
+        if create:
+            if not self._create(self.Ptr, self.bname, self.size): raise e
+        else:
+            if not self._open(self.Ptr, self.bname, self.size): raise e
+        self.buf, self.bufRef = C.create_string_buffer(b'', size=self.size), C.byref(self.buf)
+
+    def read(self):
+        res = self._R(self.Ptr, self.bufRef, 0)
+        if not res: raise Exception("zero-length message, abort")
+        return bytearray(self.buf)
+
+    def write(self, message:bytes):
+        ln = len(message)
+        if ln == 0: raise Exception("Message can't be empty")
+        if ln > self.size: raise Exception(f"Too big message: got {ln}, needed <= {self.size}")
+        return self._W(self.Ptr, C.c_char_p(message), ln)
+
+    def free(self):
+        pass
+
+    @classmethod
+    def remove(cls, name):
+        return _Lib.varRemove(C.byref(C.create_string_buffer(name)))
+
+
+class Topic(PubSub):
+    def __init__(self, name, msg_size, msg_count, spawn_mode = TopicSpawnMode.CREATE, def_str_type=None):
+        assert isinstance(name, bytes), "Name should be ascii bytes"
+        self._dst = def_str_type
+        self.name, self.msg_size, self.msg_count = name, msg_size, msg_count
+        self.bname = C.byref(C.create_string_buffer(name))
+        self._spawn, self._spawn.restype = _Lib.topicSpawn, C.c_bool
+        self._create, self._create.restype = _Lib.topicCreate, C.c_bool
+        self._pub, self._pub.restype, self._pub.argtypes = _Lib.topicPub, C.c_bool, [C.c_void_p, C.c_char_p, C.c_uint32]
+        self._sub, self._sub.restype, self._sub.argtypes = _Lib.topicSub, C.c_bool, [C.c_void_p, C.c_char_p]
+        self.Ptr = C.byref(C.create_string_buffer(b"", size=_Lib.topPtrSize()))
         e = Exception("Error: topic.hpp returned nullptr (:")
         if spawn_mode == TopicSpawnMode.CREATE:
-            ok = self.__create(self._t, self._n, self.msg_size, self.msg_count)
-            if not ok: raise e
+            if not self._create(self.Ptr, self.bname, self.msg_size, self.msg_count): raise e
         elif spawn_mode == TopicSpawnMode.IGNORE_ALL:
-            ok = self.__spawn(self._t, self._n, 0, 0)
-            if not ok: raise e
-            self.msg_size = _TopicLib.msg_size(self._t)
-            self.msg_count = _TopicLib.msg_count(self._t)
+            if not self._spawn(self.Ptr, self.bname, 0, 0): raise e
+            self.msg_size, self.msg_count = _Lib.topicMsgSize(self.Ptr), _Lib.topicMsgCount(self.Ptr)
         elif spawn_mode == TopicSpawnMode.IGNORE_MSGCOUNT:
             assert isinstance(msg_size, int), "msg_size should be int"
             assert msg_size > 0, "msg_size should be > 0"
-            ok = self.__spawn(self._t, self._n, msg_size, 0)
-            if not ok: raise e
-            self.msg_count = _TopicLib.msg_count(self._t)
+            if not self._spawn(self.Ptr, self.bname, msg_size, 0): raise e
+            self.msg_count = _Lib.topicMsgCount(self.Ptr)
         elif spawn_mode == TopicSpawnMode.STRICT:
             assert isinstance(msg_size, int), "msg_size should be int"
             assert msg_size > 0, "msg_size should be > 0"
             assert isinstance(msg_count, int), "msg_count should be int"
             assert msg_count > 0, "msg_count should be > 0"
-            ok = self.__spawn(self._t, self._n, msg_size, msg_count)
-            if not ok: raise e
+            if not self._spawn(self.Ptr, self.bname, msg_size, msg_count): raise e
         print(f"Topic created. Size {self.msg_size}, count {self.msg_count}")
-        self._b = C.create_string_buffer(b'', size=self.msg_size)
-        self._br = C.byref(self._b)
+        self.buf, self.bufRef = C.create_string_buffer(b'', size=self.msg_size), C.byref(self.buf)
 
-    def pub(self, message:bytes):
-        # print("bytes to pub:", message, "type:", type(message))
+    def write(self, message:bytes):
         ln = len(message)
         if ln == 0: raise Exception("Message can't be empty")
         if ln > self.msg_size: raise Exception(f"Too big message: got {ln}, needed <= {self.msg_size}")
-        return self._pub(self._t, C.c_char_p(message), ln)
+        return self._pub(self.Ptr, C.c_char_p(message), ln)
 
-    def sub(self):
-        res = _TopicLib.sub(self._t, self._br)
-        # print(f"RES: {res}")
-        if res == 0:
-            raise Exception("zero-length message, abort")
-        b = bytearray(self._b)
-        # print("sub _b.value:", self._b.value, "type:", type(self._b.value))
-        return b
+    def read(self):
+        res = self._sub(self.Ptr, self.bufRef)
+        if res == 0: raise Exception("zero-length message, abort")
+        return bytearray(self.buf)
 
     def free(self):
         pass
 
-    def pub_struct(self, strct: C.Structure):
-        b = bytes(strct)
-        return self.pub(b)
-
-    def sub_struct(self, strtype):
-        return strtype.from_buffer_copy(self.sub())
-
     @classmethod
     def remove(cls, name):
-        _n = C.byref(C.create_string_buffer(name))
-        return _TopicLib.remove_topic(_n)
+        return _Lib.topicRemove(C.byref(C.create_string_buffer(name)))
 
 
-def getdict(struct):
+def get_dict(struct):
     result = {}
     for field, _ in struct._fields_:
          value = getattr(struct, field)
-         # if the type is not a primitive and it evaluates to False ...
          if (type(value) not in [C.c_int, C.c_long, C.c_float, C.c_bool]) and not bool(value):
-             # it's a null pointer
              value = None
          elif hasattr(value, "_length_") and hasattr(value, "_type_"):
-             # Probably an array
              value = list(value)
          elif hasattr(value, "_fields_"):
-             # Probably another struct
-             value = getdict(value)
+             value = get_dict(value)
          result[field] = value
     return result
 
 
-class TopicFactory:
-    def __init__(self, prefix=""):
+class PubSubFactory:
+    def __init__(self, prefix):
         self.prefix = prefix
-        self._topic_decl = {}
-        self._topics = {}
+        self._declared = {}
 
-    def register(self, name, struct_clz, msg_count, spawn_mode:TopicSpawnMode):
-        if name in self._topic_decl: raise Exception(f"Topic '{name}' already registered to this Factory")
-        self._topic_decl[name] = (struct_clz, msg_count, spawn_mode)
+    def register_topic(self, name, struct_class, msg_count, spawn_mode: TopicSpawnMode):
+        if name in self._declared: raise Exception(f"Name '{name}' already registered in Factory")
+        self._declared[name] = (self._gen_topic, struct_class, msg_count, spawn_mode)
 
-    def extract_top(self, name):
-        t, strct = self._topics.get(name, (None, None))
-        if t is None:
-            decl = self._topic_decl.get(name, None)
-            if decl is None:
-                print(f"Topic '{name}' wasn't declared")
-                return None, None
-            strct = decl[0]
-            t = Topic((self.prefix+name).encode("ascii"), msg_size=C.sizeof(strct), msg_count=decl[1], spawn_mode=decl[2])
-            self._topics[name] = (t, strct)
-        return t, strct
+    def register_var(self, name, struct_class, create=True):
+        self._declared[name] = (self._gen_var, struct_class, create)
 
-    def pub(self, name, dct):
-        t, struct_clz = self.extract_top(name)
-        if t is None: return
-        t.pub_struct(struct_clz(**dct))
+    def _bname(self, name):
+        return (self.prefix + name).encode("ascii")
 
-    def sub(self, name):
-        t, struct_clz = self.extract_top(name)
-        if t is None: return
-        struct = t.sub_struct(struct_clz)
-        return getdict(struct)
+    def _gen_topic(self, name, clz, cnt, mode):
+        return Topic(self._bname(name), msg_size=C.sizeof(clz), msg_count=cnt, spawn_mode=mode, def_str_type=clz)
+
+    def _gen_var(self, name, clz, create):
+        return Variable(self._bname(name), size=clz, create=create, def_str_type=clz)
+
+    def _extract(self, name) -> PubSub:
+        p = self._declared.get(name, None)
+        if p is None: raise Exception(f"No '{name}' registered")
+        if isinstance(p, tuple):
+            p = p[0](name, *p[1:])
+            self._declared[name] = p
+        return p
+
+    def write(self, name, dct):
+        return self._extract(name).write_dict(dct)
+
+    def read(self, name):
+        return self._extract(name).read_dict()
+
 

@@ -11,7 +11,7 @@ if __name__ == "__main__":
     print(f"basis: {tt}")
     try:
         while True:
-            b = t.sub()
+            b = t.read()
             image = np.asarray(b[8:], dtype="uint8")
             image = cv2.imdecode(image, cv2.IMREAD_COLOR)
             tm = struct.unpack("I", b[4:8])[0]

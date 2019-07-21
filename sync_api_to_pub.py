@@ -18,7 +18,7 @@ if __name__=="__main__":
                 if parts[0] != "pubsub":
                     print(f"Warning: message adressed to non-pubsub channel '{chnl}', that is not supported yet")
                     continue
-                try: tf.pub(parts[1], msg["body"])
+                try: tf.write(parts[1], msg["body"])
                 except Exception as e: print(f"Error while publishing: {e}")
             else:
                 pass #TODO: обработать другие actions

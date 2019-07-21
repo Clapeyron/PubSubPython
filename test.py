@@ -23,7 +23,7 @@ if __name__=="__main__":
     str_msg = b'HelloAAAAAAWorld'
     lmsg = len(str_msg)
     msg = C.byref(C.create_string_buffer(str_msg, size=64))
-    print(Topic.pub(t, str_msg, 0))
-    print(Topic.sub(t, msg))
+    print(Topic.write(t, str_msg, 0))
+    print(Topic.read(t, msg))
     # Topic.free_mem(tref)
     faulthandler.disable()

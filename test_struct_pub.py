@@ -10,7 +10,7 @@ class MyPoint(C.Structure):
 if __name__ == "__main__":
     t = Topic(b"Mycooltopic_struct1", C.sizeof(MyPoint), 10, TopicSpawnMode.CREATE)
     try:
-        while True: t.pub_struct(MyPoint(*map(float, input("> ").strip().split(" "))))
+        while True: t.write_struct(MyPoint(*map(float, input("> ").strip().split(" "))))
     except Exception as e:
         print("Exception:", e)
         t.free()
