@@ -13,6 +13,8 @@ class MyPoint(C.Structure):
 if __name__ == "__main__":
     t = Variable(b"MyVariable", C.sizeof(MyPoint), create=True)
     if len(sys.argv) > 2:
-        t.write_struct(MyPoint(*map(float, sys.argv[1:3])))
+        p = MyPoint(*map(float, sys.argv[1:3]))
+        print(p)
+        t.write_struct(p)
     else:
         print(t.read_struct(MyPoint))

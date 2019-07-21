@@ -54,14 +54,15 @@ class Variable(PubSub):
         self._create, self._create.restype = _Lib.varCreate, C.c_bool
         self._open, self._open.restype = _Lib.varOpen, C.c_bool
         self._W, self._W.restype, self._W.argtypes = _Lib.varWrite, C.c_bool, [C.c_void_p, C.c_char_p, C.c_uint32]
-        self._R, self._R.restype, self._R.argtypes = _Lib.varRead, C.c_bool, [C.c_void_p, C.c_char_p, C.c_uint32]
+        self._R, self._R.restype = _Lib.varRead, C.c_bool #, [C.c_void_p, C.c_char_p, C.c_uint32]
         self.Ptr = C.byref(C.create_string_buffer(b"", size=_Lib.varPtrSize()))
         e = Exception("Can't create Variable: topic.hpp returned nullptr (:")
         if create:
             if not self._create(self.Ptr, self.bname, self.size): raise e
         else:
             if not self._open(self.Ptr, self.bname, self.size): raise e
-        self.buf, self.bufRef = C.create_string_buffer(b'', size=self.size), C.byref(self.buf)
+        self.buf = C.create_string_buffer(b'', size=self.size)
+        self.bufRef = C.byref(self.buf)
 
     def read(self):
         res = self._R(self.Ptr, self.bufRef, 0)
@@ -91,7 +92,7 @@ class Topic(PubSub):
         self._spawn, self._spawn.restype = _Lib.topicSpawn, C.c_bool
         self._create, self._create.restype = _Lib.topicCreate, C.c_bool
         self._pub, self._pub.restype, self._pub.argtypes = _Lib.topicPub, C.c_bool, [C.c_void_p, C.c_char_p, C.c_uint32]
-        self._sub, self._sub.restype, self._sub.argtypes = _Lib.topicSub, C.c_bool, [C.c_void_p, C.c_char_p]
+        self._sub, self._sub.restype = _Lib.topicSub, C.c_bool #, self._sub.argtypes = , [C.c_void_p, C.c_char_p]
         self.Ptr = C.byref(C.create_string_buffer(b"", size=_Lib.topPtrSize()))
         e = Exception("Error: topic.hpp returned nullptr (:")
         if spawn_mode == TopicSpawnMode.CREATE:
@@ -111,7 +112,8 @@ class Topic(PubSub):
             assert msg_count > 0, "msg_count should be > 0"
             if not self._spawn(self.Ptr, self.bname, msg_size, msg_count): raise e
         print(f"Topic created. Size {self.msg_size}, count {self.msg_count}")
-        self.buf, self.bufRef = C.create_string_buffer(b'', size=self.msg_size), C.byref(self.buf)
+        self.buf = C.create_string_buffer(b'', size=self.msg_size)
+        self.bufRef = C.byref(self.buf)
 
     def write(self, message:bytes):
         ln = len(message)
@@ -121,7 +123,7 @@ class Topic(PubSub):
 
     def read(self):
         res = self._sub(self.Ptr, self.bufRef)
-        if res == 0: raise Exception("zero-length message, abort")
+        if not res: raise Exception("zero-length message, abort")
         return bytearray(self.buf)
 
     def free(self):
