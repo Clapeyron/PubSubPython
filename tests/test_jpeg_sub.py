@@ -1,7 +1,7 @@
 import numpy as np
 import struct
 import time
-import test_jpeg as tj
+from tests import test_jpeg as tj
 import cv2
 
 

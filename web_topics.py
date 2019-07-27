@@ -38,9 +38,9 @@ class FloatStruct(C.Structure):
 topic2web.register_topic("mass", FloatStruct, 10, TopicSpawnMode.CREATE)
 
 
-class TopicThread(Thread):
+class TopicOutThread(Thread):
     def __init__(self, topname, rec_id, scraper, *args, **kwargs):
-        super(TopicThread, self).__init__(*args, **kwargs)
+        super(TopicOutThread, self).__init__(*args, **kwargs)
         self._stop = Event()
         self.topname = topname
         self.scraper = scraper
@@ -73,18 +73,18 @@ class TopicThread(Thread):
             except Exception as e: print(f"Reading topic {self.topname} in thread error: {e}")
 
 
-class TopicThreadFactory:
+class TopicOutThreadFactory:
     def __init__(self, scraper):
         self.topics = {}
         self.scraper = scraper
 
     def start_stream(self, name, rec_id):
         if not name in self.topics:
-            t = TopicThread(topname=name, scraper=self.scraper, rec_id=rec_id)
+            t = TopicOutThread(topname=name, scraper=self.scraper, rec_id=rec_id)
             self.topics[name] = t
             t.start()
         else:
-            t: TopicThread = self.topics[name]
+            t: TopicOutThread = self.topics[name]
             t.add_receiver(name)
 
     def stop_stream(self, name, rec_id):

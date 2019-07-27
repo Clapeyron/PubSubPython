@@ -11,12 +11,14 @@ class TopicSpawnMode(enum.Enum):
     CREATE = 3
 
 
-class NonBlockingPubSub:
+class TpcInterruptedException(Exception):
     pass
 
 
 class PubSub:
     _dst = None
+    _interrupted = _Lib.was_interrupted
+    _interrupted.restype = C.c_bool
 
     def read(self):
         raise NotImplementedError()
@@ -73,7 +75,8 @@ class Variable(PubSub):
         ln = len(message)
         if ln == 0: raise Exception("Message can't be empty")
         if ln > self.size: raise Exception(f"Too big message: got {ln}, needed <= {self.size}")
-        return self._W(self.Ptr, C.c_char_p(message), ln)
+        try: return self._W(self.Ptr, C.c_char_p(message), ln)
+        except KeyboardInterrupt: raise Exception("")
 
     def free(self):
         pass
@@ -152,6 +155,7 @@ class PubSubFactory:
     def __init__(self, prefix):
         self.prefix = prefix
         self._declared = {}
+        self._created = {}
 
     def register_topic(self, name, struct_class, msg_count, spawn_mode: TopicSpawnMode):
         if name in self._declared: raise Exception(f"Name '{name}' already registered in Factory")
@@ -159,6 +163,12 @@ class PubSubFactory:
 
     def register_var(self, name, struct_class, create=True):
         self._declared[name] = (self._gen_var, struct_class, create)
+
+    def rm_topic(self, name):
+        return Topic.remove(self._bname(name))
+
+    def rm_var(self, name):
+        return Variable.remove(self._bname(name))
 
     def _bname(self, name):
         return (self.prefix + name).encode("ascii")
@@ -170,17 +180,25 @@ class PubSubFactory:
         return Variable(self._bname(name), size=clz, create=create, def_str_type=clz)
 
     def _extract(self, name) -> PubSub:
-        p = self._declared.get(name, None)
-        if p is None: raise Exception(f"No '{name}' registered")
-        if isinstance(p, tuple):
+        p = self._created.get(name, None)
+        if p is None:
+            p = self._declared.get(name, None)
+            if p is None: raise Exception(f"No '{name}' registered")
             p = p[0](name, *p[1:])
-            self._declared[name] = p
+            self._created[name] = p
         return p
 
     def write(self, name, dct):
-        return self._extract(name).write_dict(dct)
+        p = self._extract(name)
+        try: return p.write_dict(dct)
+        except TpcInterruptedException:
+            p.free()
+            self._created.pop(name, None)
 
     def read(self, name):
-        return self._extract(name).read_dict()
-
+        p = self._extract(name)
+        try: return p.read_dict()
+        except TpcInterruptedException:
+            p.free()
+            self._created.pop(name, None)
 

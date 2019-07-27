@@ -1,0 +1,1956 @@
+{
+	"info": {
+		"_postman_id": "13e9e562-7963-4afb-8d53-84d73eabbc18",
+		"name": "Clap",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"owner\": \"00000000-0000-0000-0000-000000000000\",\n\t\"role\": \"HUMAN\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{api_path}}/users/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"owner\": \"00000000-0000-0000-0000-000000000000\",\n\t\"role\": \"HUMAN\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}{{api_path}}/users/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"users",
+										""
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 29 Jun 2019 13:03:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Location",
+									"value": "http://api.clapeyronrobotics.com/users/5ff26e04-9785-43d4-b888-c3f52f682aa8/"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"url\": \"http://api.clapeyronrobotics.com/users/5ff26e04-9785-43d4-b888-c3f52f682aa8/\",\n    \"user_id\": \"5ff26e04-9785-43d4-b888-c3f52f682aa8\",\n    \"created_dttm\": \"2019-06-29T13:03:14.717243Z\",\n    \"updated_dttm\": \"2019-06-29T13:03:14.716934Z\",\n    \"emails\": [],\n    \"tokens\": [],\n    \"meta\": {},\n    \"owner\": \"00000000-0000-0000-0000-000000000000\",\n    \"role\": \"HUMAN\",\n    \"is_active\": true,\n    \"back\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "List Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{api_path}}/users/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}{{api_path}}/users/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2019 07:34:57 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 3,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"url\": \"http://api.clapeyronrobotics.com/users/00000000-0000-0000-0000-000000000000/\",\n            \"user_id\": \"00000000-0000-0000-0000-000000000000\",\n            \"created_dttm\": \"2019-06-04T18:41:24.896497Z\",\n            \"updated_dttm\": \"2019-06-04T18:41:24.896282Z\",\n            \"emails\": [\n                \"maksutov_aynur@mail.ru\"\n            ],\n            \"tokens\": [],\n            \"meta\": {},\n            \"owner\": \"00000000-0000-0000-0000-000000000000\",\n            \"role\": \"ADMIN\",\n            \"is_active\": true,\n            \"back\": {}\n        },\n        {\n            \"url\": \"http://api.clapeyronrobotics.com/users/e7b3ede6-947f-419e-abc2-b8f10ba59fcb/\",\n            \"user_id\": \"e7b3ede6-947f-419e-abc2-b8f10ba59fcb\",\n            \"created_dttm\": \"2019-06-04T18:41:48.156764Z\",\n            \"updated_dttm\": \"2019-06-04T18:41:48.156536Z\",\n            \"emails\": [\n                \"maksutov@phystech.edu\"\n            ],\n            \"tokens\": [],\n            \"meta\": {},\n            \"owner\": \"00000000-0000-0000-0000-000000000000\",\n            \"role\": \"HUMAN\",\n            \"is_active\": true,\n            \"back\": {}\n        },\n        {\n            \"url\": \"http://api.clapeyronrobotics.com/users/fc08aa51-6e41-4463-8bf4-e17fa3f11a11/\",\n            \"user_id\": \"fc08aa51-6e41-4463-8bf4-e17fa3f11a11\",\n            \"created_dttm\": \"2019-06-04T18:41:48.159250Z\",\n            \"updated_dttm\": \"2019-06-04T18:41:48.159114Z\",\n            \"emails\": [],\n            \"tokens\": [\n                \"9xsE-ce8ZzRUIFogsEMZSWuHVoT7C9etEUx7qvyO-dtTUiXMUch_gO6IAYMATLk9UwEzwqaFEc9zvBJ9MfByuQ\"\n            ],\n            \"meta\": {},\n            \"owner\": \"e7b3ede6-947f-419e-abc2-b8f10ba59fcb\",\n            \"role\": \"ROBOT\",\n            \"is_active\": true,\n            \"back\": {}\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "List Users Filtered",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{api_path}}/users/?",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "ident__email",
+									"value": "{{admin1}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}{{api_path}}/users/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2019 07:34:57 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 3,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"url\": \"http://api.clapeyronrobotics.com/users/00000000-0000-0000-0000-000000000000/\",\n            \"user_id\": \"00000000-0000-0000-0000-000000000000\",\n            \"created_dttm\": \"2019-06-04T18:41:24.896497Z\",\n            \"updated_dttm\": \"2019-06-04T18:41:24.896282Z\",\n            \"emails\": [\n                \"maksutov_aynur@mail.ru\"\n            ],\n            \"tokens\": [],\n            \"meta\": {},\n            \"owner\": \"00000000-0000-0000-0000-000000000000\",\n            \"role\": \"ADMIN\",\n            \"is_active\": true,\n            \"back\": {}\n        },\n        {\n            \"url\": \"http://api.clapeyronrobotics.com/users/e7b3ede6-947f-419e-abc2-b8f10ba59fcb/\",\n            \"user_id\": \"e7b3ede6-947f-419e-abc2-b8f10ba59fcb\",\n            \"created_dttm\": \"2019-06-04T18:41:48.156764Z\",\n            \"updated_dttm\": \"2019-06-04T18:41:48.156536Z\",\n            \"emails\": [\n                \"maksutov@phystech.edu\"\n            ],\n            \"tokens\": [],\n            \"meta\": {},\n            \"owner\": \"00000000-0000-0000-0000-000000000000\",\n            \"role\": \"HUMAN\",\n            \"is_active\": true,\n            \"back\": {}\n        },\n        {\n            \"url\": \"http://api.clapeyronrobotics.com/users/fc08aa51-6e41-4463-8bf4-e17fa3f11a11/\",\n            \"user_id\": \"fc08aa51-6e41-4463-8bf4-e17fa3f11a11\",\n            \"created_dttm\": \"2019-06-04T18:41:48.159250Z\",\n            \"updated_dttm\": \"2019-06-04T18:41:48.159114Z\",\n            \"emails\": [],\n            \"tokens\": [\n                \"9xsE-ce8ZzRUIFogsEMZSWuHVoT7C9etEUx7qvyO-dtTUiXMUch_gO6IAYMATLk9UwEzwqaFEc9zvBJ9MfByuQ\"\n            ],\n            \"meta\": {},\n            \"owner\": \"e7b3ede6-947f-419e-abc2-b8f10ba59fcb\",\n            \"role\": \"ROBOT\",\n            \"is_active\": true,\n            \"back\": {}\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{api_path}}/users/:id/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"users",
+								":id",
+								""
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5e94bde5-aa42-4c45-8950-53162fc54535"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{api_path}}/users/:id/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"users",
+								":id",
+								""
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "47952d2a-e3a2-4dec-ac72-c6818cbe23a3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{api_path}}/users/eecfbe9a-c94a-478f-a930-1389396cdcaa",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"users",
+								"eecfbe9a-c94a-478f-a930-1389396cdcaa"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "Login [ADMIN]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e9dddd15-6ee4-4fe9-8e3e-f294f972f4c9",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"token = jsonData.access_token;",
+									"if (!token) token = \"nonesence\";",
+									"postman.setEnvironmentVariable(\"access_token\", token);",
+									"",
+									"token = jsonData.refresh_token;",
+									"if (!token) token = \"nonesence\";",
+									"postman.setEnvironmentVariable(\"refresh_token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{admin1}}\",\n\t\"password\": \"{{admin1_pwd}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{api_path}}/login/email/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"login",
+								"email",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login [ADMIN]",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\": \"{{admin1}}\",\n\t\"password\": \"{{admin1_pwd}}\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}{{api_path}}/login/email/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"login",
+										"email",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 29 Jun 2019 12:58:48 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "rclap_token=\"\"; expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; Path=/"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwIjp7InVzZXJfaWQiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAifSwia2lkIjoiYzgzOWVjZDQtNDMyNS00MDU4LTllYmUtODFiNDBlOGViZjlmIiwiZXhwIjoxNTYxODk5NTI4LjEzOTczNDcsInR5cCI6ImFjY2VzcyJ9.I7Mgq1S80uyNIxFUZo5gm6azwzGrVP03B1SAdmYtLRM; Path=/"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwIjp7InVzZXJfaWQiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAifSwia2lkIjoiYzgzOWVjZDQtNDMyNS00MDU4LTllYmUtODFiNDBlOGViZjlmIiwiZXhwIjoxNTYxODk5NTI4LjEzOTczNDcsInR5cCI6ImFjY2VzcyJ9.I7Mgq1S80uyNIxFUZo5gm6azwzGrVP03B1SAdmYtLRM\",\n    \"refresh_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwIjp7InVzZXJfaWQiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAifSwia2lkIjoiYjI3ODhlM2UtYTc5Yi00NzZjLWI5OTUtZWU5YzM2ODE5NGNhIiwiZXhwIjoxNTY0NDA1MTI4LjEzOTg4NDIsInR5cCI6InJlZnJlc2gifQ.fX-5nQuiV-amsbPYyCai1eyxrt14FFVRpQHMUxRC0bo\",\n    \"email\": \"maksutov_aynur@mail.ru\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login [ROBOT]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "73ef5857-3eee-424a-8c5c-f50d79740e50",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"token = jsonData.raccess_token",
+									"if (!token) token = \"nonesence\";",
+									"postman.setEnvironmentVariable(\"access_token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"token\": \"{{current_device_token}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{api_path}}/login/token/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"login",
+								"token",
+								""
+							]
+						},
+						"description": "\t"
+					},
+					"response": []
+				},
+				{
+					"name": "CurrentUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a56cdc32-8a87-43cd-8d95-e1ed538c5221",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"current_user_id = jsonData.user_id;",
+									"if (current_user_id) postman.setEnvironmentVariable(\"current_user_id\", current_user_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{api_path}}/users/current/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"users",
+								"current",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "CurrentUser",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}{{api_path}}/users/current/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"users",
+										"current",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 08 Jul 2019 21:24:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"url\": \"http://api.clapeyronrobotics.com/users/fc08aa51-6e41-4463-8bf4-e17fa3f11a11/\",\n    \"user_id\": \"fc08aa51-6e41-4463-8bf4-e17fa3f11a11\",\n    \"created_dttm\": \"2019-06-04T18:41:48.159250Z\",\n    \"updated_dttm\": \"2019-06-04T18:41:48.159114Z\",\n    \"emails\": [],\n    \"tokens\": [\n        \"9xsE-ce8ZzRUIFogsEMZSWuHVoT7C9etEUx7qvyO-dtTUiXMUch_gO6IAYMATLk9UwEzwqaFEc9zvBJ9MfByuQ\"\n    ],\n    \"meta\": {},\n    \"owner\": \"e7b3ede6-947f-419e-abc2-b8f10ba59fcb\",\n    \"role\": \"ROBOT\",\n    \"is_active\": true\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Credentials",
+			"item": [
+				{
+					"name": "List Emails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{api_path}}/emails/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"emails",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List Emails",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}{{api_path}}/emails/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"emails",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2019 07:36:56 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 2,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"url\": \"http://api.clapeyronrobotics.com/emails/7472e18f-887b-4851-b749-6ac0af8f5877/\",\n            \"email\": \"maksutov_aynur@mail.ru\",\n            \"ident_id\": \"7472e18f-887b-4851-b749-6ac0af8f5877\",\n            \"created_dttm\": \"2019-06-04T18:41:24.899410Z\",\n            \"updated_dttm\": \"2019-06-04T18:41:25.213039Z\",\n            \"user_id\": \"00000000-0000-0000-0000-000000000000\",\n            \"password\": \"bcrypt_sha256$$2b$12$wlT1Bu7iIFrMoll8DCm15.IFkFXe0nuvU3orEMmL5LTQc.FuKwnE2\",\n            \"email_confirmed\": true\n        },\n        {\n            \"url\": \"http://api.clapeyronrobotics.com/emails/dc750b0f-829f-49d7-9785-cb4035c8bed7/\",\n            \"email\": \"maksutov@phystech.edu\",\n            \"ident_id\": \"dc750b0f-829f-49d7-9785-cb4035c8bed7\",\n            \"created_dttm\": \"2019-06-05T07:34:45.812673Z\",\n            \"updated_dttm\": \"2019-06-05T07:34:46.169796Z\",\n            \"user_id\": \"e7b3ede6-947f-419e-abc2-b8f10ba59fcb\",\n            \"password\": \"bcrypt_sha256$$2b$12$DzMWqn1SLTNG3YvuvcrREeWGP4qocSFIiWK7.qd.0kphX7A47UJim\",\n            \"email_confirmed\": false\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Email",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user_id\": \"e7b3ede6-947f-419e-abc2-b8f10ba59fcb\",\n\t\"email\": \"maksutov@phystech.edu\",\n\t\"password\": \"qawsedrf\",\n\t\"confirm_password\": \"qawsedrf\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{api_path}}/emails/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"emails",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Email",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"user_id\": \"e7b3ede6-947f-419e-abc2-b8f10ba59fcb\",\n\t\"email\": \"maksutov@phystech.edu\",\n\t\"password\": \"qawsedrf\",\n\t\"confirm_password\": \"qawsedrf\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}{{api_path}}/emails/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"emails",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2019 07:34:46 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Location",
+									"value": "http://api.clapeyronrobotics.com/emails/dc750b0f-829f-49d7-9785-cb4035c8bed7/"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"url\": \"http://api.clapeyronrobotics.com/emails/dc750b0f-829f-49d7-9785-cb4035c8bed7/\",\n    \"email\": \"maksutov@phystech.edu\",\n    \"ident_id\": \"dc750b0f-829f-49d7-9785-cb4035c8bed7\",\n    \"created_dttm\": \"2019-06-05T07:34:45.812673Z\",\n    \"updated_dttm\": \"2019-06-05T07:34:46.169796Z\",\n    \"user_id\": \"e7b3ede6-947f-419e-abc2-b8f10ba59fcb\",\n    \"password\": \"bcrypt_sha256$$2b$12$DzMWqn1SLTNG3YvuvcrREeWGP4qocSFIiWK7.qd.0kphX7A47UJim\",\n    \"email_confirmed\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "Show email",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user_id\": \"e7b3ede6-947f-419e-abc2-b8f10ba59fcb\",\n\t\"email\": \"maksutov@phystech.edu\",\n\t\"password\": \"qawsedrf\",\n\t\"confirm_password\": \"qawsedrf\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{api_path}}/emails/:id/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"emails",
+								":id",
+								""
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "7472e18f-887b-4851-b749-6ac0af8f5877"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Show email",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"user_id\": \"e7b3ede6-947f-419e-abc2-b8f10ba59fcb\",\n\t\"email\": \"maksutov@phystech.edu\",\n\t\"password\": \"qawsedrf\",\n\t\"confirm_password\": \"qawsedrf\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}{{api_path}}/emails/:id/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"emails",
+										":id",
+										""
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "7472e18f-887b-4851-b749-6ac0af8f5877"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2019 07:39:30 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"url\": \"http://api.clapeyronrobotics.com/emails/7472e18f-887b-4851-b749-6ac0af8f5877/\",\n    \"email\": \"maksutov_aynur@mail.ru\",\n    \"ident_id\": \"7472e18f-887b-4851-b749-6ac0af8f5877\",\n    \"created_dttm\": \"2019-06-04T18:41:24.899410Z\",\n    \"updated_dttm\": \"2019-06-04T18:41:25.213039Z\",\n    \"user_id\": \"00000000-0000-0000-0000-000000000000\",\n    \"password\": \"bcrypt_sha256$$2b$12$wlT1Bu7iIFrMoll8DCm15.IFkFXe0nuvU3orEMmL5LTQc.FuKwnE2\",\n    \"email_confirmed\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "List Clap-Device-Tokens",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{api_path}}/tokens/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"tokens",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List Clap-Device-Tokens",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}{{api_path}}/tokens/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"tokens",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2019 07:36:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"url\": \"http://api.clapeyronrobotics.com/tokens/4ca2df87-787e-47ef-8f62-04e04d47155d/\",\n            \"token\": \"9xsE-ce8ZzRUIFogsEMZSWuHVoT7C9etEUx7qvyO-dtTUiXMUch_gO6IAYMATLk9UwEzwqaFEc9zvBJ9MfByuQ\",\n            \"ident_id\": \"4ca2df87-787e-47ef-8f62-04e04d47155d\",\n            \"created_dttm\": \"2019-06-05T07:30:55.668672Z\",\n            \"updated_dttm\": \"2019-06-05T07:30:55.668435Z\",\n            \"user_id\": \"fc08aa51-6e41-4463-8bf4-e17fa3f11a11\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Clap-Device-Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "644ac3a0-7345-413d-87f8-87595352bc2e",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"token = jsonData.token",
+									"if (!token) token = \"nonesence\";",
+									"postman.setEnvironmentVariable(\"current_device_token\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user_id\": \"fc08aa51-6e41-4463-8bf4-e17fa3f11a11\",\n\t\"nbytes\": 64\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{api_path}}/tokens/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"tokens",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Clap-Device-Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"user_id\": \"fc08aa51-6e41-4463-8bf4-e17fa3f11a11\",\n\t\"nbytes\": 64\n}"
+								},
+								"url": {
+									"raw": "{{host}}{{api_path}}/tokens/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"tokens",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2019 07:30:55 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Location",
+									"value": "http://api.clapeyronrobotics.com/tokens/4ca2df87-787e-47ef-8f62-04e04d47155d/"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"url\": \"http://api.clapeyronrobotics.com/tokens/4ca2df87-787e-47ef-8f62-04e04d47155d/\",\n    \"token\": \"9xsE-ce8ZzRUIFogsEMZSWuHVoT7C9etEUx7qvyO-dtTUiXMUch_gO6IAYMATLk9UwEzwqaFEc9zvBJ9MfByuQ\",\n    \"ident_id\": \"4ca2df87-787e-47ef-8f62-04e04d47155d\",\n    \"created_dttm\": \"2019-06-05T07:30:55.668672Z\",\n    \"updated_dttm\": \"2019-06-05T07:30:55.668435Z\",\n    \"user_id\": \"fc08aa51-6e41-4463-8bf4-e17fa3f11a11\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Show Clap-Device-Token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{api_path}}/tokens/:id/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"tokens",
+								":id",
+								""
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "4ca2df87-787e-47ef-8f62-04e04d47155d"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Show Clap-Device-Token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}{{api_path}}/tokens/:id/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"tokens",
+										":id",
+										""
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "4ca2df87-787e-47ef-8f62-04e04d47155d"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 05 Jun 2019 07:41:29 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"url\": \"http://api.clapeyronrobotics.com/tokens/4ca2df87-787e-47ef-8f62-04e04d47155d/\",\n    \"token\": \"9xsE-ce8ZzRUIFogsEMZSWuHVoT7C9etEUx7qvyO-dtTUiXMUch_gO6IAYMATLk9UwEzwqaFEc9zvBJ9MfByuQ\",\n    \"ident_id\": \"4ca2df87-787e-47ef-8f62-04e04d47155d\",\n    \"created_dttm\": \"2019-06-05T07:30:55.668672Z\",\n    \"updated_dttm\": \"2019-06-05T07:30:55.668435Z\",\n    \"user_id\": \"fc08aa51-6e41-4463-8bf4-e17fa3f11a11\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Messages",
+			"item": [
+				{
+					"name": "List Messages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "05c75140-3041-4d31-ade7-597c683832d3",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"last_message_dttm = jsonData.results[0].created_dttm;",
+									"if (last_message_dttm) postman.setEnvironmentVariable(\"last_message_dttm\", last_message_dttm);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{api_path}}/messages/?after={{last_message_dttm}}&receiver=00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"messages",
+								""
+							],
+							"query": [
+								{
+									"key": "sender",
+									"value": "00000000-0000-0000-0000-000000000000",
+									"disabled": true
+								},
+								{
+									"key": "after",
+									"value": "{{last_message_dttm}}"
+								},
+								{
+									"key": "receiver",
+									"value": "00000000-0000-0000-0000-000000000000"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List Messages",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}{{api_path}}/messages/?sender=00000000-0000-0000-0000-000000000000&after=2019-06-07 23:30:00",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"messages",
+										""
+									],
+									"query": [
+										{
+											"key": "sender",
+											"value": "00000000-0000-0000-0000-000000000000"
+										},
+										{
+											"key": "after",
+											"value": "2019-06-07 23:30:00"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 09 Jun 2019 10:40:44 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"url\": \"http://api.clapeyronrobotics.com/messages/a7bd9ce7-7353-4aa5-8d2e-b9a63c9d3e24/\",\n            \"created_dttm\": \"2019-06-07T23:54:39.826510Z\",\n            \"message_id\": \"a7bd9ce7-7353-4aa5-8d2e-b9a63c9d3e24\",\n            \"action\": \"OK\",\n            \"channel\": \"robo\",\n            \"body\": {},\n            \"replied\": false,\n            \"sender\": \"00000000-0000-0000-0000-000000000000\",\n            \"receiver\": \"e7b3ede6-947f-419e-abc2-b8f10ba59fcb\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"action\": \"OK\",\n\t\"channel\": \"robo.mechanics\",\n\t\"body\": {\"a\": 1},\n\t\"receiver\": \"00000000-0000-0000-0000-000000000000\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{api_path}}/messages/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"messages",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Message",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"action\": \"OK\",\n\t\"channel\": \"robo.mechanics\",\n\t\"body\": {\"a\": 1},\n\t\"receiver\": \"00000000-0000-0000-0000-000000000000\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}{{api_path}}/messages/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"messages",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 09 Jun 2019 10:53:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Location",
+									"value": "http://api.clapeyronrobotics.com/messages/e4e6f183-5d00-45d6-8184-71afb2c2b03b/"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"url\": \"http://api.clapeyronrobotics.com/messages/e4e6f183-5d00-45d6-8184-71afb2c2b03b/\",\n    \"created_dttm\": \"2019-06-09T10:53:52.810942Z\",\n    \"message_id\": \"e4e6f183-5d00-45d6-8184-71afb2c2b03b\",\n    \"action\": \"OK\",\n    \"channel\": \"robo.mechanics\",\n    \"body\": {\n        \"a\": 1\n    },\n    \"replied\": false,\n    \"sender\": \"00000000-0000-0000-0000-000000000000\",\n    \"receiver\": \"00000000-0000-0000-0000-000000000000\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Supscribe on Topic",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"action\": \"on\",\n\t\"channel\": \"pubsub.mass\",\n\t\"body\": {},\n\t\"receiver\": \"{{current_user_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{api_path}}/messages/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"messages",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Message",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"action\": \"OK\",\n\t\"channel\": \"robo.mechanics\",\n\t\"body\": {\"a\": 1},\n\t\"receiver\": \"00000000-0000-0000-0000-000000000000\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}{{api_path}}/messages/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"messages",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 09 Jun 2019 10:53:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Location",
+									"value": "http://api.clapeyronrobotics.com/messages/e4e6f183-5d00-45d6-8184-71afb2c2b03b/"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"url\": \"http://api.clapeyronrobotics.com/messages/e4e6f183-5d00-45d6-8184-71afb2c2b03b/\",\n    \"created_dttm\": \"2019-06-09T10:53:52.810942Z\",\n    \"message_id\": \"e4e6f183-5d00-45d6-8184-71afb2c2b03b\",\n    \"action\": \"OK\",\n    \"channel\": \"robo.mechanics\",\n    \"body\": {\n        \"a\": 1\n    },\n    \"replied\": false,\n    \"sender\": \"00000000-0000-0000-0000-000000000000\",\n    \"receiver\": \"00000000-0000-0000-0000-000000000000\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Unsupscribe Topic",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"action\": \"off\",\n\t\"channel\": \"pubsub.mass\",\n\t\"body\": {},\n\t\"receiver\": \"{{current_user_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{api_path}}/messages/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"messages",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Message",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"action\": \"OK\",\n\t\"channel\": \"robo.mechanics\",\n\t\"body\": {\"a\": 1},\n\t\"receiver\": \"00000000-0000-0000-0000-000000000000\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}{{api_path}}/messages/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"messages",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 09 Jun 2019 10:53:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Location",
+									"value": "http://api.clapeyronrobotics.com/messages/e4e6f183-5d00-45d6-8184-71afb2c2b03b/"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"url\": \"http://api.clapeyronrobotics.com/messages/e4e6f183-5d00-45d6-8184-71afb2c2b03b/\",\n    \"created_dttm\": \"2019-06-09T10:53:52.810942Z\",\n    \"message_id\": \"e4e6f183-5d00-45d6-8184-71afb2c2b03b\",\n    \"action\": \"OK\",\n    \"channel\": \"robo.mechanics\",\n    \"body\": {\n        \"a\": 1\n    },\n    \"replied\": false,\n    \"sender\": \"00000000-0000-0000-0000-000000000000\",\n    \"receiver\": \"00000000-0000-0000-0000-000000000000\"\n}"
+						}
+					]
+				},
+				{
+					"name": "PubToTopic",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"action\": \"pub\",\n\t\"channel\": \"pubsub.wheels\",\n\t\"body\": {\"left\": 1, \"right\": -3},\n\t\"receiver\": \"{{current_user_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{api_path}}/messages/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"messages",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Message",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"action\": \"OK\",\n\t\"channel\": \"robo.mechanics\",\n\t\"body\": {\"a\": 1},\n\t\"receiver\": \"00000000-0000-0000-0000-000000000000\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}{{api_path}}/messages/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"messages",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 09 Jun 2019 10:53:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Location",
+									"value": "http://api.clapeyronrobotics.com/messages/e4e6f183-5d00-45d6-8184-71afb2c2b03b/"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"url\": \"http://api.clapeyronrobotics.com/messages/e4e6f183-5d00-45d6-8184-71afb2c2b03b/\",\n    \"created_dttm\": \"2019-06-09T10:53:52.810942Z\",\n    \"message_id\": \"e4e6f183-5d00-45d6-8184-71afb2c2b03b\",\n    \"action\": \"OK\",\n    \"channel\": \"robo.mechanics\",\n    \"body\": {\n        \"a\": 1\n    },\n    \"replied\": false,\n    \"sender\": \"00000000-0000-0000-0000-000000000000\",\n    \"receiver\": \"00000000-0000-0000-0000-000000000000\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Logs",
+			"item": [
+				{
+					"name": "Create Log Record",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"type\":\"WARNING\",\n\t\"channel\":\"dev.camera.0\",\n\t\"body\":{\"some_info1\": \"info\", \"some_info2\": \"ahha\"},\n\t\"about\":\"fc08aa51-6e41-4463-8bf4-e17fa3f11a11\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}{{api_path}}/logs/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"logs",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Log Record",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"type\":\"WARNING\",\n\t\"channel\":\"dev.camera.0\",\n\t\"body\":{\"some_info1\": \"info\", \"some_info2\": \"ahha\"},\n\t\"about\":\"fc08aa51-6e41-4463-8bf4-e17fa3f11a11\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}{{api_path}}/logs/",
+									"host": [
+										"{{host}}{{api_path}}"
+									],
+									"path": [
+										"logs",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.14.0 (Ubuntu)"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 09 Jun 2019 10:58:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"iss\": \"00000000-0000-0000-0000-000000000000\",\n    \"type\": \"WARNING\",\n    \"channel\": \"dev.camera.0\",\n    \"body\": {\n        \"some_info1\": \"info\",\n        \"some_info2\": \"ahha\"\n    },\n    \"about\": \"fc08aa51-6e41-4463-8bf4-e17fa3f11a11\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "List files",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}{{api_path}}/files/",
+							"host": [
+								"{{host}}{{api_path}}"
+							],
+							"path": [
+								"files",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,12 +1,13 @@
 import time
 from scrap_api import Scraper
-from web_topics import web2topic, TopicThreadFactory
+from web_topics import web2topic, TopicOutThreadFactory
+
 
 MY_TOKEN = "9xsE-ce8ZzRUIFogsEMZSWuHVoT7C9etEUx7qvyO-dtTUiXMUch_gO6IAYMATLk9UwEzwqaFEc9zvBJ9MfByuQ"
 
 if __name__=="__main__":
     scraper = Scraper(token=MY_TOKEN)
-    ttf = TopicThreadFactory(scraper)
+    ttf = TopicOutThreadFactory(scraper)
     while True:
         msgs = scraper.scrap()
         print(f"Last scrapped messages {scraper.last_point}:\n{msgs}")
