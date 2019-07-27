@@ -1,6 +1,6 @@
-from web_topics import tf
+from web_topics import web2topic
 
 
 if __name__=="__main__":
     while True:
-        print(tf.read("wheels"))
+        print(web2topic.read("wheels"))

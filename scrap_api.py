@@ -1,6 +1,5 @@
 import requests
 from datetime import datetime
-from dateutil.parser import parse as parse_dttm
 
 
 class Scraper:
@@ -27,10 +26,16 @@ class Scraper:
     def api_get(self, local_url, body=None):
         return self.api_request("get", local_url, body=body)
 
+    def api_post(self, local_url, body=None):
+        return self.api_request("post", local_url, body=body)
+
     def scrap(self):
-        time_str = str(self.last_point).split("+", 1)[0]
+        time_str = datetime.strftime(self.last_point, "%Y-%m-%d %H:%M:%S %f")
         messages_ans = self.api_get(f"messages/?receiver={self.USER_ID}&after={time_str}")
         messages = messages_ans["results"]
         if len(messages) == 0: return []
-        self.last_point = parse_dttm(messages[-1]["created_dttm"], ignoretz=True)
+        self.last_point = datetime.strptime(messages[0]["created_dttm"], "%Y-%m-%d %H:%M:%S %f")
         return messages
+
+    def send_msg(self, action, channel, msg, receiver):
+        self.api_post("messages/", body=dict(action=action, channel=channel, body=msg, receiver=receiver))
